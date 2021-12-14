@@ -39,6 +39,7 @@ void main() {
       // if match found then no need to
       // traverse more till depth
       return;
+
     }
 
     // Mark the current node
@@ -48,15 +49,17 @@ void main() {
     // adjacent to current vertex
     for (var i = 0; i < adjList.length; i++) {
     //  if (!isVisited[adjList[u][i]]) {
-        if ((adjList[i].u==u)&&(!isVisited.contains(adjList[i].v))) {
+        if ((adjList[i].u==u)&&(isVisited[i]==false)) {
       localPathList.add(adjList[i].v);
-        printAllPathsUtil(adjList[i], d,
-            isVisited, localPathList);
+      print(localPathList);
+      //  printAllPathsUtil(adjList[i].v, d, isVisited, localPathList);
 
         // remove current node
         // in path[]
         //  localPathList.splice(localPathList.indexOf
         //    (adjList[u][i]),1);
+         // adjList.removeAt(i);
+
       }
     }
 
@@ -70,9 +73,15 @@ void main() {
 
   printAllPaths(s,d)
   {
-    var isVisited = new List.filled(v, false, growable: false);
-    for(var i=0;i<v;i++)
-      isVisited[i]=false;
+    var isVisited = new List.filled(100, false, growable: true);
+
+    /*
+    for(var i=0;i<8;i++) {
+      isVisited[i] = false;
+      print(isVisited[i]);
+    }
+*/
+
     var pathList = [];
 
     // add source to path[]
@@ -102,8 +111,6 @@ void main() {
       "Following are all different paths from "
           + s.toString() + " to " + d.toString() );
   printAllPaths(s, d);
- // print (adjList[0].u.toString() + " " + adjList[0].v.toString());
- // print (adjList[1].u.toString() + " " + adjList[1].v.toString());
- // print (adjList[2].u.toString() + " " + adjList[2].v.toString());
+
 
 }
