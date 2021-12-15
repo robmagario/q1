@@ -1,3 +1,4 @@
+// class for adjacent pairs
 class adjacent{
   int u;
   int v;
@@ -8,6 +9,7 @@ void main() {
   var adjList = <adjacent>[];
   var shortestPathList = [];
 
+  // function to convert from letter to number since all internal calculations are done with integers
   int letterConverter (String val) {
     switch(val) {
       case 'A': return 0;
@@ -22,6 +24,7 @@ void main() {
     return 99;
   }
 
+  // function to convert numbers back to letters for the nodes
   List listConverter (List listValue) {
     var result = [];
     for (var x=0; x < listValue.length; x++) {
@@ -49,7 +52,6 @@ void main() {
 
   printAllPathsUtil(u,d,isVisited,localPathList) {
     if (u == (d)) {
-     // print(localPathList);
       print (listConverter(localPathList).toString());
       if (shortestPathList.isEmpty) {
         shortestPathList = [...localPathList];
@@ -61,18 +63,18 @@ void main() {
       // if match found then no need to
       // traverse more till depth
       return;
-
     }
 
     // Mark the current node
     isVisited[u] = true;
 
-    // Recur for all the vertices
+    // Recursive for all the vertices
     // adjacent to current vertex
     for (var i = 0; i < adjList.length; i++) {
         if ((adjList[i].u==u)&&(isVisited[adjList[i].v]==false)) {
           localPathList.add(adjList[i].v);
           printAllPathsUtil(adjList[i].v, d, isVisited, localPathList);
+          // remove the current mode
           localPathList.remove(adjList[i].v);
       }
     }
@@ -99,20 +101,24 @@ void main() {
     printAllPathsUtil(s, d, isVisited, pathList);
   }
 
-
-  //graph(4);
   addEdge('A', 'B');
-  addEdge('A', 'C');
   addEdge('A', 'D');
-  addEdge('C', 'A');
-  addEdge('C', 'B');
+  addEdge('A', 'H');
+  addEdge('B', 'C');
   addEdge('B', 'D');
+  addEdge('B', 'D');
+  addEdge('C', 'D');
+  addEdge('C', 'F');
+  addEdge('D', 'E');
+  addEdge('E', 'H');
+  addEdge('F', 'G');
+  addEdge('G', 'H');
 
 // arbitrary source
-  var s = 'C';
+  var s = 'A';
 
 // arbitrary destination
-  var d = 'D';
+  var d = 'H';
 
   print(
       "Following are all different paths from "
@@ -123,5 +129,5 @@ void main() {
       "Following is the shortest path from "
           + s.toString() + " to " + d.toString() );
 
-  print (shortestPathList);
+  print (listConverter(shortestPathList));
 }
