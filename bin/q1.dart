@@ -5,37 +5,25 @@ class adjacent{
 }
 
 void main() {
-  var  v;
   var adjList = <adjacent>[];
-/*
-  initAdjList()
-  {
-    //adjList = List.generate(v, (i) => List.filled(v, 0, growable: false), growable: false);
-
-  }
-  */
-// A directed graph using
-// adjacency list representation
-  graph(vertices)
-  {
-    // initialise vertex count
-    v = vertices;
-
-    // initialise adjacency list
-    //initAdjList();
-  }
-
-
+  var shortestPathList = [];
 // add edge from u to v
   addEdge(u,v)
   {
     adjList.add(adjacent(u: u, v: v));
   }
 
-
   printAllPathsUtil(u,d,isVisited,localPathList) {
     if (u == (d)) {
       print(localPathList);
+
+      if (shortestPathList.isEmpty) {
+        shortestPathList = [...localPathList];
+      }
+      else if (localPathList.length < shortestPathList.length) {
+        shortestPathList = [...localPathList];
+      }
+
       var temp = localPathList[0];
       localPathList.clear();
       localPathList.add(temp);
@@ -51,29 +39,15 @@ void main() {
     // Recur for all the vertices
     // adjacent to current vertex
     for (var i = 0; i < adjList.length; i++) {
-  //    print (i);
- //     print ("u = " + adjList[i].u.toString());
-  //    print ("i = " + adjList[i].v.toString());
-   //   print (isVisited[i]);
-    //  if (!isVisited[adjList[u][i]]) {
         if ((adjList[i].u==u)&&(isVisited[adjList[i].v]==false)) {
-      localPathList.add(adjList[i].v);
-//print (localPathList[i]);
-        printAllPathsUtil(adjList[i].v, d, isVisited, localPathList);
-
-        // remove current node
-        // in path[]
-        //  localPathList.splice(localPathList.indexOf
-        //    (adjList[u][i]),1);
-      //    localPathList.remove(i);
-
+          localPathList.add(adjList[i].v);
+          printAllPathsUtil(adjList[i].v, d, isVisited, localPathList);
       }
     }
 
     // Mark the current node
     isVisited[u] = false;
   }
-  
 
 // Prints all paths from
   // 's' to 'd'
@@ -90,7 +64,8 @@ void main() {
     printAllPathsUtil(s, d, isVisited, pathList);
   }
 
-  graph(4);
+
+  //graph(4);
   addEdge(0, 1);
   addEdge(0, 2);
   addEdge(0, 3);
@@ -109,5 +84,9 @@ void main() {
           + s.toString() + " to " + d.toString() );
   printAllPaths(s, d);
 
+  print(
+      "Following is the shortest path from "
+          + s.toString() + " to " + d.toString() );
 
+  print (shortestPathList);
 }
