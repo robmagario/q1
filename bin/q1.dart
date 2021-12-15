@@ -58,9 +58,6 @@ void main() {
         shortestPathList = [...localPathList];
       }
 
-      var temp = localPathList[0];
-      localPathList.clear();
-      localPathList.add(temp);
       // if match found then no need to
       // traverse more till depth
       return;
@@ -76,6 +73,7 @@ void main() {
         if ((adjList[i].u==u)&&(isVisited[adjList[i].v]==false)) {
           localPathList.add(adjList[i].v);
           printAllPathsUtil(adjList[i].v, d, isVisited, localPathList);
+          localPathList.remove(adjList[i].v);
       }
     }
 
