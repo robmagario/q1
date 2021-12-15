@@ -36,6 +36,9 @@ void main() {
   printAllPathsUtil(u,d,isVisited,localPathList) {
     if (u == (d)) {
       print(localPathList);
+      var temp = localPathList[0];
+      localPathList.clear();
+      localPathList.add(temp);
       // if match found then no need to
       // traverse more till depth
       return;
@@ -48,17 +51,21 @@ void main() {
     // Recur for all the vertices
     // adjacent to current vertex
     for (var i = 0; i < adjList.length; i++) {
+  //    print (i);
+ //     print ("u = " + adjList[i].u.toString());
+  //    print ("i = " + adjList[i].v.toString());
+   //   print (isVisited[i]);
     //  if (!isVisited[adjList[u][i]]) {
-        if ((adjList[i].u==u)&&(isVisited[i]==false)) {
+        if ((adjList[i].u==u)&&(isVisited[adjList[i].v]==false)) {
       localPathList.add(adjList[i].v);
-      print(localPathList);
-      //  printAllPathsUtil(adjList[i].v, d, isVisited, localPathList);
+//print (localPathList[i]);
+        printAllPathsUtil(adjList[i].v, d, isVisited, localPathList);
 
         // remove current node
         // in path[]
         //  localPathList.splice(localPathList.indexOf
         //    (adjList[u][i]),1);
-         // adjList.removeAt(i);
+      //    localPathList.remove(i);
 
       }
     }
@@ -73,15 +80,7 @@ void main() {
 
   printAllPaths(s,d)
   {
-    var isVisited = new List.filled(100, false, growable: true);
-
-    /*
-    for(var i=0;i<8;i++) {
-      isVisited[i] = false;
-      print(isVisited[i]);
-    }
-*/
-
+    var isVisited = new List.filled(100, false, growable: false);
     var pathList = [];
 
     // add source to path[]
@@ -90,8 +89,6 @@ void main() {
     // Call recursive utility
     printAllPathsUtil(s, d, isVisited, pathList);
   }
-
-
 
   graph(4);
   addEdge(0, 1);
