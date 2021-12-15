@@ -7,16 +7,50 @@ class adjacent{
 void main() {
   var adjList = <adjacent>[];
   var shortestPathList = [];
+
+  int letterConverter (String val) {
+    switch(val) {
+      case 'A': return 0;
+      case 'B': return 1;
+      case 'C': return 2;
+      case 'D': return 3;
+      case 'E': return 4;
+      case 'F': return 5;
+      case 'G': return 6;
+      case 'H': return 7;
+    }
+    return 99;
+  }
+
+  List listConverter (List listValue) {
+    var result = [];
+    for (var x=0; x < listValue.length; x++) {
+      switch (listValue[x]) {
+        case 0 : result.add('A'); break;
+        case 1 : result.add('B'); break;
+        case 2 : result.add('C'); break;
+        case 3 : result.add('D'); break;
+        case 4 : result.add('E'); break;
+        case 5 : result.add('F'); break;
+        case 6 : result.add('G'); break;
+        case 7 : result.add('H'); break;
+      }
+    }
+    return result;
+  }
+
 // add edge from u to v
-  addEdge(u,v)
+  addEdge(uLetter,vLetter)
   {
+    var u = letterConverter(uLetter);
+    var v = letterConverter(vLetter);
     adjList.add(adjacent(u: u, v: v));
   }
 
   printAllPathsUtil(u,d,isVisited,localPathList) {
     if (u == (d)) {
-      print(localPathList);
-
+     // print(localPathList);
+      print (listConverter(localPathList).toString());
       if (shortestPathList.isEmpty) {
         shortestPathList = [...localPathList];
       }
@@ -52,8 +86,11 @@ void main() {
 // Prints all paths from
   // 's' to 'd'
 
-  printAllPaths(s,d)
+  printAllPaths(sLetter,dLetter)
   {
+    var s = letterConverter(sLetter);
+    var d = letterConverter(dLetter);
+
     var isVisited = new List.filled(100, false, growable: false);
     var pathList = [];
 
@@ -66,18 +103,18 @@ void main() {
 
 
   //graph(4);
-  addEdge(0, 1);
-  addEdge(0, 2);
-  addEdge(0, 3);
-  addEdge(2, 0);
-  addEdge(2, 1);
-  addEdge(1, 3);
+  addEdge('A', 'B');
+  addEdge('A', 'C');
+  addEdge('A', 'D');
+  addEdge('C', 'A');
+  addEdge('C', 'B');
+  addEdge('B', 'D');
 
 // arbitrary source
-  var s = 2;
+  var s = 'C';
 
 // arbitrary destination
-  var d = 3;
+  var d = 'D';
 
   print(
       "Following are all different paths from "
